@@ -1,9 +1,9 @@
 package com.mariem.gojaw;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.HashMap;
 
@@ -27,11 +29,19 @@ public class MainActivity extends AppCompatActivity {
     EditText edtEmail,edtPassword;
     Retrofit retrofit;
     RetrofitInterface retrofitInterface;
-    String BASE_URL="http://192.168.43.117:4000";
+    String BASE_URL = "http://192.168.1.11:4000";
+
+    private SharedPreferences sharedpreferences;
+    private String MyPREFERENCES = "prefs";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        if (isConnected()) {
+            openHomeActivity();
+        }
         retrofit=new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create()).build();
@@ -96,6 +106,9 @@ public class MainActivity extends AppCompatActivity {
 //                                    dialog.cancel();
 //                                }
 //                            });
+                                nameEdit.setText(" ");
+                                emailEdit.setText(" ");
+                                passwordEdit.setText(" ");
 
                                 startActivity(new Intent(getApplicationContext(),MainActivity.class));
 
@@ -152,9 +165,8 @@ public class MainActivity extends AppCompatActivity {
 
                     Toast.makeText(getApplicationContext(),"success",Toast.LENGTH_LONG).show();
                     LoginResult result = response.body();
+                    saveSession(result.getId());
                     Intent intent=new Intent(getApplicationContext(),HomeActivity.class);
-                    intent.putExtra(Constant.ARG_ID,result.getId());
-                    intent.putExtra(Constant.ARG_NAME,result.getName());
                     startActivity(intent);
                     finish();
 
@@ -184,5 +196,26 @@ public class MainActivity extends AppCompatActivity {
         edtEmail=findViewById(R.id.emailEdit);
         edtPassword=findViewById(R.id.passwordEdit);
     }
+
+    private void saveSession(String id) {
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putBoolean("IS_CONNECTED", true);
+        editor.putString("ID_USER", id);
+        editor.apply();
+    }
+
+
+    private void openHomeActivity() {
+        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+        finishAffinity();
+    }
+
+    private boolean isConnected() {
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        return sharedpreferences.getBoolean("IS_CONNECTED", false);
+
+    }
+
 
 }

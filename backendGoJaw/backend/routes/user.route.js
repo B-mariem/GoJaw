@@ -19,7 +19,8 @@ router.route("/register-user").post((req, res, next) => {
             
                     name: req.body.name,
                     email:req.body.email,
-                    password: hash
+                    password: hash,
+                    date:new date()
                 });
                 user.save().then((response) => {
                     res.status(200).json({
