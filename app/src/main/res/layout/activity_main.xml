@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,51 +7,61 @@
     android:orientation="vertical"
     android:padding="10dp"
     tools:context=".MainActivity">
-    <de.hdodenhof.circleimageview.CircleImageView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/profile_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/logo1"
 
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="8dp"
-        app:civ_border_color="#FDFFFD"/>
-    <EditText
-        android:layout_margin="8dp"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:id="@+id/linear_layout">
 
-        android:hint="email"
-        android:id="@+id/emailEdit" />
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/profile_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logo1"
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:hint="password"
-        android:id="@+id/passwordEdit"
-        android:inputType="textPassword" />
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="8dp"
+            app:civ_border_color="#FDFFFD" />
 
-    <Button
-        android:layout_width="130dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginRight="50dp"
-        android:layout_gravity="right"
-        android:background="@drawable/button_bg_rounded_corners"
-        android:textColor="#ffffff"
-        android:text="connexion"
-        android:id="@+id/login" />
+        <EditText
+            android:layout_margin="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Créer un compte"
-        android:id="@+id/signup"
-        android:layout_gravity="right"
-        android:textSize="12dp"
-        android:layout_margin="50dp"/>
+            android:hint="email"
+            android:id="@+id/emailEdit" />
 
-</LinearLayout>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:hint="password"
+            android:id="@+id/passwordEdit"
+            android:inputType="textPassword" />
+
+        <Button
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="50dp"
+            android:layout_gravity="right"
+            android:background="@drawable/button_bg_rounded_corners"
+            android:textColor="#ffffff"
+            android:text="connexion"
+            android:id="@+id/login" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Créer un compte"
+            android:id="@+id/signup"
+            android:layout_gravity="right"
+            android:textSize="12dp"
+            android:layout_margin="50dp" />
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

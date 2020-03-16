@@ -10,10 +10,13 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.HashMap;
 
@@ -29,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     EditText edtEmail,edtPassword;
     Retrofit retrofit;
     RetrofitInterface retrofitInterface;
-    String BASE_URL = "http://192.168.1.11:4000";
+    LinearLayout linearLayout;
 
     private SharedPreferences sharedpreferences;
     private String MyPREFERENCES = "prefs";
@@ -37,13 +40,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        linearLayout = findViewById(R.id.linear_layout);
 
         if (isConnected()) {
             openHomeActivity();
         }
         retrofit=new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(Constant.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create()).build();
         retrofitInterface=retrofit.create(RetrofitInterface.class);
 
@@ -100,30 +103,28 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(Call<Void> call, Response<Void> response) {
                             if(response.code()==200){
-//                          builder .setPositiveButton("SKIP", new DialogInterface.OnClickListener() {
-//                                public void onClick(DialogInterface dialog, int id) {
-//                                    //this for skip dialog
-//                                    dialog.cancel();
-//                                }
-//                            });
+
                                 nameEdit.setText(" ");
                                 emailEdit.setText(" ");
                                 passwordEdit.setText(" ");
 
                                 startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                                finish();
 
 
-                                Toast.makeText(getApplicationContext(),"go to login activity",Toast.LENGTH_LONG).show();
+
                             }else if (response.code() == 400) {
-                                Toast.makeText(MainActivity.this,
-                                        "Already registered", Toast.LENGTH_LONG).show();
+                                Snackbar.make(linearLayout,
+                                        "Already registered", Snackbar.LENGTH_LONG).show();
                             }
 
                         }
 
                         @Override
                         public void onFailure(Call<Void> call, Throwable t) {
-                            Toast.makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_LONG).show();
+                            Snackbar.make(linearLayout,
+                                    t.getMessage(), Snackbar.LENGTH_LONG).show();
+
                         }
                     });
 
@@ -157,6 +158,7 @@ public class MainActivity extends AppCompatActivity {
         HashMap <String,String> map=new HashMap<>();
         map.put("email",edtEmail.getText().toString());
         map.put("password",edtPassword.getText().toString());
+
         Call<LoginResult> call=retrofitInterface.executeLogin(map);
         call.enqueue(new Callback<LoginResult>() {
             @Override
