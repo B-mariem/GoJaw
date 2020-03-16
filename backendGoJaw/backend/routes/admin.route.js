@@ -83,7 +83,7 @@ router.route("/signin").post((req, res, next) => {
     });
 });
 
-// Get Users
+
 router.route('/').get((req, res) => {
     adminSchema.find((error, response) => {
         if (error) {

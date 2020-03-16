@@ -12,7 +12,8 @@ let user = new Schema({
    },
     password: {
       type: String
-   }
+   },
+ 
 }, {
    collection: 'user'
 })

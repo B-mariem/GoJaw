@@ -1,4 +1,34 @@
 <app-root-nav>
-    <p>create-des works!</p>
+       
+    <div class="row justify-content-center">
+        <form [formGroup]="destinationForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label>Destination</label>
+              <input class="form-control" type="text" formControlName="destination">
+            </div>
+            <div class="form-group">
+              <label>image</label>
+              <input class="form-control" type="text" formControlName="image">
+            </div>
+            <div class="form-group">
+                <label>Categorie</label>
+                <input class="form-control" type="text" formControlName="categorie">
+              </div>
+            <div class="form-group">
+                <label>Ville</label>
+                <select class="custom-select form-control" (change)="updateVille($event.target.value)"
+                formControlName="ville">
+                  <option *ngFor="let item of tabVille" value="{{item.ville}}">{{item.ville}}
+                  </option>
+                </select>
+               
+              </div>
+            <div class="form-group">
+              <button class="btn btn-success btn-lg btn-block" type="submit">Valider</button>
+            </div>
+          </form>
+        </div>
+   
+       
 </app-root-nav>
 

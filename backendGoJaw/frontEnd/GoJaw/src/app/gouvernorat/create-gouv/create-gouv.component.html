@@ -1,7 +1,40 @@
 <app-root-nav>
-    
-<p>create-gouv works!</p>
-    <router-outlet></router-outlet>
+    <button type="button" class="btn btn-outline-primary" (click)="showDevAdd()">Ajouter gouv</button>
+    <div class="row justify-content-center">
+        
+        <div *ngIf="show">
+    <form [formGroup]="gouvForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label>Gouvernorat</label>
+        <input class="form-control" type="text" formControlName="gouv">
+      </div>
+  
+      <div class="form-group">
+        <button class="btn btn-success btn-lg btn-block" type="submit">Valider</button>
+      </div>
+    </form>
+</div>
+
+<div class="table-responsive" style="margin-top: 50px;">
+  <table class="table">
+      <thead >
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Gouvernorat</th>
+          
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let item of tabGouv; ">
+            <td>{{item._id}}</td>
+            <td>{{item.gouv}}</td>   
+          </tr>
+        </tbody>
+     
+  </table>
+</div>
+  </div>
+   
 
 </app-root-nav>
 

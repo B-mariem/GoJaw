@@ -11,6 +11,9 @@ import { admin } from '../Models/admin';
 })
 export class ApiService {
   adminpoint: string = 'http://localhost:4000/admin';
+  gouvpoint: string = 'http://localhost:4000/gouv';
+  villepoint: string = 'http://localhost:4000/ville';
+  destinationpoint: string = 'http://localhost:4000/destination';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
   currentAdmin = {};
   constructor(private http: HttpClient, public router: Router) { }
@@ -78,4 +81,38 @@ export class ApiService {
     }
     return throwError(msg);
   }
+  /*--------------------gouvernorat--------------------------*/
+  createGouv(obejct): Observable<any> {
+    let api = `${this.gouvpoint}/create`;
+    return this.http.post(api, obejct)
+      .pipe(
+        catchError(this.handleError)
+      )
+
+  }
+
+  getGouvs() {
+    return this.http.get(`${this.gouvpoint}`);
+  }
+  /*----------------------ville-------------------------*/
+  createVille(obejct): Observable<any> {
+    let api = `${this.villepoint}/create`;
+    return this.http.post(api, obejct)
+      .pipe(
+        catchError(this.handleError)
+      )
+
+  }
+  getVilles() {
+    return this.http.get(`${this.villepoint}`);
+  }
+  createDestination(obejct): Observable<any> {
+    let api = `${this. destinationpoint}/create`;
+    return this.http.post(api, obejct)
+      .pipe(
+        catchError(this.handleError)
+      )
+
+  }
+  
 }

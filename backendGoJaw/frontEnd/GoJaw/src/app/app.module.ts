@@ -27,6 +27,7 @@ import { CreateGouvComponent } from './gouvernorat/create-gouv/create-gouv.compo
 import { CreateDesComponent } from './des/create-des/create-des.component';
 import { CreateVilleComponent } from './ville/create-ville/create-ville.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +39,8 @@ import { CreateVilleComponent } from './ville/create-ville/create-ville.componen
     AffFeedbackComponent,
     CreateGouvComponent,
     CreateDesComponent,
-    CreateVilleComponent
+    CreateVilleComponent,
+ 
   ],
   imports: [
     BrowserModule,

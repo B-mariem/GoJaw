@@ -7,7 +7,16 @@ const { check, validationResult } = require('express-validator');
 
 // Sign-up
 router.route("/register-user").post((req, res, next) => {
-        const errors = validationResult(req);
+    userSchema.findOne({
+        email: req.body.email
+    }).then(user => {
+        if (user) {
+            return res.status(400).json({
+                message: "Already registered"
+            });
+        }
+    });
+     const errors = validationResult(req);
         console.log(req.body);
 
         if (!errors.isEmpty()) {
@@ -20,7 +29,7 @@ router.route("/register-user").post((req, res, next) => {
                     name: req.body.name,
                     email:req.body.email,
                     password: hash,
-                    date:new date()
+                
                 });
                 user.save().then((response) => {
                     res.status(200).json({
