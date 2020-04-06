@@ -3,8 +3,8 @@
     <div class="row justify-content-center">
         <form [formGroup]="destinationForm" (ngSubmit)="onSubmit()">
             <div class="form-group">
-              <label>Destination</label>
-              <input class="form-control" type="text" formControlName="destination">
+              <label>Libellé</label>
+              <input class="form-control" type="text" formControlName="libelle">
             </div>
             <div class="form-group">
               <label>image</label>
@@ -15,10 +15,10 @@
                 <input class="form-control" type="text" formControlName="categorie">
               </div>
             <div class="form-group">
-                <label>Ville</label>
-                <select class="custom-select form-control" (change)="updateVille($event.target.value)"
-                formControlName="ville">
-                  <option *ngFor="let item of tabVille" value="{{item.ville}}">{{item.ville}}
+                <label>Gouv</label>
+                <select class="custom-select form-control" (change)="updateGouv($event.target.value)"
+                formControlName="gouv">
+                  <option *ngFor="let item of tabGouv" value="{{item.gouv}}">{{item.gouv}}
                   </option>
                 </select>
                

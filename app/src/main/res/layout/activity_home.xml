@@ -8,12 +8,11 @@
     android:id="@+id/drawer"
     android:background="#fff"
 
-    tools:context=".HomeActivity">
+    tools:context=".ui.HomeActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/tunis">
+        android:layout_height="match_parent">
 
 
         <androidx.appcompat.widget.Toolbar
@@ -22,30 +21,12 @@
             android:id="@+id/toolbar"
             android:background="#fff" />
 
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:id="@+id/pos_bizerte"
-            android:src="@drawable/pos"
-            android:layout_marginLeft="160dp"
-            android:layout_marginTop="15dp"
-            android:layout_below="@+id/toolbar"
-            android:onClick="click" />
-
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:id="@+id/pos_Tozeur"
-            android:src="@drawable/pos"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="320dp"
-
-            android:onClick="click"
-
-
-            />
-
-
+       <androidx.recyclerview.widget.RecyclerView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:id="@+id/rv_list_gouv"
+           android:layout_below="@id/toolbar"
+           android:layout_margin="10dp"/>
     </RelativeLayout>
 
 

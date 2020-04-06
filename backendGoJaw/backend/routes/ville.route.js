@@ -26,15 +26,15 @@ villeroute.route('/').get((req, res) => {
 })
 //get by gouv
 villeroute.route('/byGouv').post((req, res) => {
-    villeModel.find({gouvernorat:req.body.gouvernorat}).then((ville) => {
-        res.status(200).send(ville) 
-
-      }).catch((err)=> {
-          // If an error occurred, send it to the client
-          res.json(err);
-    
+    villeModel.find(({gouvernorat:req.body.gouvernorat}),(error, data) => {
+      if (error) {
+        res.status(404)
+      } else { 
+        res.status(200).send(data)
+      }
+    }).populate("position","-_id -__v")
+      
       })
-  })
 // Update ville
 villeroute.route('/update/:id').put((req, res, next) => {
   villeModel.findByIdAndUpdate(req.params.id, {

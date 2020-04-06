@@ -9,6 +9,7 @@ import { CreateEventComponent } from './evenement/create-event/create-event.comp
 import { CreateDesComponent } from './des/create-des/create-des.component';
 import { AffStattistiqueComponent } from './statistique/aff-stattistique/aff-stattistique.component';
 import { AffFeedbackComponent } from './feedback/aff-feedback/aff-feedback.component';
+import { EditDesComponent } from './des/edit-des/edit-des.component';
 
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
   {path:"create-gouv",component:CreateGouvComponent},
   {path:"create-ville",component:CreateVilleComponent},
   {path:"create-des",component:CreateDesComponent},
+  {path:"edit-des",component:EditDesComponent},
   {path:"create-event",component:CreateEventComponent},
   {path:"statistique",component:AffStattistiqueComponent},
   {path:"feedback",component:AffFeedbackComponent},

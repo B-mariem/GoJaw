@@ -24,6 +24,7 @@ tabGouv:any
   mainForm() {
     this.gouvForm = this.fb.group({
      gouv: ['', [Validators.required]],
+     image: ['', [Validators.required]]
     
     })
   }

@@ -1,39 +1,17 @@
-var mongoose=require('mongoose');
-//schema maps to a MongoDB collection 
-var Schema=mongoose.Schema;
-//the Schema( structure of document/data) in MongoDB by the use of mongoose.Schema.
-var destinationchema=new Schema(
-    {   
-        destination:{
-            type: String,
-            unique:true,
-            lowercase: true,
-            required:true
+const mongoose = require("mongoose");
 
-        },
-        image:{
-            type:String,
-            unique:true,
-            required:true
+const Destination = mongoose.model(
+  "Destination",
+  new mongoose.Schema({
+    libelle:{type: String,unique:true,lowercase: true,required:true},
+    image:{type:String,unique:true,required:true},
+    categorie:{type:String,required:true},
+    gouv:{type:String,required:true}, 
+    position: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Position"
+    }
+  })
+);
 
-
-        },
-        categorie:{
-            type:String,
-            unique:true,
-            required:true
-
-
-        },
-        ville:{
-            type:String,
-            required:true
-
-        } 
-    },
-    {
-        collection: 'destinations'
-     })
-
-// export the schema 
-module.exports = mongoose.model('destinations', destinationchema)
+module.exports = Destination;

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+        app:cardCornerRadius="10dp"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.CreateEventActivity"
+        android:padding="5dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Titre de l'event"
+        android:id="@+id/edt_name"
+        android:layout_margin="10dp"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cliquez ici pour saisir la date de l'événement"
+            android:id="@+id/btn_date_event"
+            android:layout_below="@id/edt_name"
+            android:gravity="center_horizontal"
+            android:layout_margin="10dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+          android:gravity="center_horizontal"
+            android:layout_below="@id/btn_date_event"
+            android:id="@+id/txt_date_event"
+            />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:id="@+id/rv_event_des"
+        android:layout_below="@id/txt_date_event"
+       />
+
+        <Spinner
+            android:id="@+id/aSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_below="@id/rv_event_des"
+            android:entries="@array/Spinner_items"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/aSpinner"
+        android:id="@+id/btn_send_event"
+        android:text="valide"
+        android:layout_centerHorizontal="true"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt"
+        android:layout_below="@id/btn_send_event"/>
+    </RelativeLayout>
+    </androidx.cardview.widget.CardView>

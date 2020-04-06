@@ -1,0 +1,25 @@
+<app-root-nav>
+    <div class="container">
+        <table class="table table-bordered" >
+          <thead class="table-success">
+            <tr>
+              <th scope="col">Libellé</th>
+              <th scope="col">Categorié</th>
+              <th scope="col">Gouv</th>
+              <th scope="col" >Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let destination of destination;">
+              <td>{{destination.libelle}}</td>
+              <td>{{destination.categorie}}</td>
+              <td>{{destination.gouv}}</td>
+              <td><button type="button" *ngIf="!destination.position" class="btn btn-warning"(click)="openDialogAddPosition(destination._id)">add Position</button>
+                
+            </td>        
+            </tr>
+          </tbody>
+        </table>
+      </div>
+</app-root-nav>
+

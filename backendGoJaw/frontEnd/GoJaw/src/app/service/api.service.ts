@@ -92,7 +92,7 @@ export class ApiService {
   }
 
   getGouvs() {
-    return this.http.get(`${this.gouvpoint}`);
+    return this.http.get(`${this.gouvpoint}/all`);
   }
   /*----------------------ville-------------------------*/
   createVille(obejct): Observable<any> {
@@ -106,6 +106,7 @@ export class ApiService {
   getVilles() {
     return this.http.get(`${this.villepoint}`);
   }
+    /*----------------------Destination-------------------------*/
   createDestination(obejct): Observable<any> {
     let api = `${this. destinationpoint}/create`;
     return this.http.post(api, obejct)
@@ -113,6 +114,15 @@ export class ApiService {
         catchError(this.handleError)
       )
 
+  }
+  getDestinations() {
+    return this.http.get(`${this.destinationpoint}`);
+  }
+  addPosition(id, data): Observable<any> {
+    let url = `${this.destinationpoint}/addPosition/${id}`;
+    return this.http.post(url, data, { headers: this.headers }).pipe(
+      catchError(this.handleError)
+    )
   }
   
 }

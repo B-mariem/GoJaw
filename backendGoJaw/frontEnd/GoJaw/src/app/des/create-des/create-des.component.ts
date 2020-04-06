@@ -10,35 +10,34 @@ import { ApiService } from 'src/app/service/api.service';
 export class CreateDesComponent implements OnInit {
 
   destinationForm: FormGroup;
- tabVille:any
+ tabGouv:any
   constructor( public fb: FormBuilder,private apiService: ApiService ) { 
-    this.apiService.getVilles().subscribe((data)=>{
-      this.tabVille=data
-  console.log(this.tabVille);
+    this.apiService.getGouvs().subscribe((data)=>{
+      this.tabGouv=data
+  console.log(this.tabGouv);
   
     })
 
     this.mainForm();
   }
 
-  updateVille(e){
-    this.destinationForm.get('ville').setValue(e, {
+  updateGouv(e){
+    this.destinationForm.get('gouv').setValue(e, {
       onlySelf: true
     })
   }
   mainForm() {
     this.destinationForm = this.fb.group({
-      destination: ['', [Validators.required]], 
+      libelle: ['', [Validators.required]], 
       image: ['', [Validators.required]], 
       categorie: ['', [Validators.required]], 
-      ville: ['', [Validators.required]],
+      gouv: ['', [Validators.required]],
     })
   }
 
   onSubmit() {
     console.log(this.destinationForm.value);
-    this.apiService.createDestination(this.destinationForm.value).subscribe(
-      (res) => {
+    this.apiService.createDestination(this.destinationForm.value).subscribe( (res) => {
         alert('destination successfully created!')
       this.destinationForm.reset()
       

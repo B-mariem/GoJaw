@@ -25,6 +25,7 @@ const userRouter = require('../backend/routes/user.route')
 const gouvRouter=require('../backend/routes/gouv.route')
 const villeRouter=require('../backend/routes/ville.route')
 const destinationRouter=require('../backend/routes/destination.route')
+const eventRouter=require('../backend/routes/event.route')
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -37,6 +38,7 @@ app.use('/user',userRouter)
 app.use('/gouv',gouvRouter)
 app.use('/ville',villeRouter)
 app.use('/destination',destinationRouter)
+app.use('/event',eventRouter)
 // Create port
 const port = process.env.PORT || 4000;
 app.listen(port, () => {

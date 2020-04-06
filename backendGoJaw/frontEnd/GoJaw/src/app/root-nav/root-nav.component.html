@@ -9,8 +9,12 @@
       <a mat-list-item [routerLink]="'/feedback'">Feedback</a>
       <a mat-list-item [routerLink]="'/create-event'">Evenements </a>
       <a mat-list-item [routerLink]="'/create-gouv'">Gouvernorats</a>
-      <a mat-list-item [routerLink]="'/create-ville'">Villes</a>
-      <a mat-list-item [routerLink]="'/create-des'">Destination</a>
+      <button mat-button [matMenuTriggerFor]="menu">Destinations</button>
+         <mat-menu #menu="matMenu">
+         <button mat-menu-item [routerLink]="'/create-des'"> add Destination</button>
+         <button mat-menu-item [routerLink]="'/edit-des'"> edit Destination</button>
+      </mat-menu>
+  
       <button mat-list-item style="margin-top: 200px;" class="btn btn-outline-info" (click)="logout()">se déconnecter</button>
     </mat-nav-list>
   </mat-sidenav>

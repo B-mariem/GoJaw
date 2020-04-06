@@ -20,13 +20,18 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material';
+import { MatMenuModule} from '@angular/material/menu';
 import { CreateEventComponent } from './evenement/create-event/create-event.component';
 import { AffStattistiqueComponent } from './statistique/aff-stattistique/aff-stattistique.component';
 import { AffFeedbackComponent } from './feedback/aff-feedback/aff-feedback.component';
 import { CreateGouvComponent } from './gouvernorat/create-gouv/create-gouv.component';
 import { CreateDesComponent } from './des/create-des/create-des.component';
 import { CreateVilleComponent } from './ville/create-ville/create-ville.component';
-
+import { EditDesComponent } from './des/edit-des/edit-des.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { DialogDesComponent } from './des/dialog-des/dialog-des.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +45,8 @@ import { CreateVilleComponent } from './ville/create-ville/create-ville.componen
     CreateGouvComponent,
     CreateDesComponent,
     CreateVilleComponent,
+    EditDesComponent,
+    DialogDesComponent,
  
   ],
   imports: [
@@ -55,7 +62,14 @@ import { CreateVilleComponent } from './ville/create-ville/create-ville.componen
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatMenuModule,
+    MatDialogModule
+  ],
+  entryComponents:[
+    DialogDesComponent
   ],
   providers: [
     ApiService,

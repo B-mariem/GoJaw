@@ -1,4 +1,4 @@
-package com.mariem.gojaw;
+package com.mariem.gojaw.ui;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -17,6 +17,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.mariem.gojaw.DATA.Constant;
+import com.mariem.gojaw.models.User;
+import com.mariem.gojaw.R;
+import com.mariem.gojaw.DATA.RetrofitInterface;
 
 import java.util.HashMap;
 
@@ -159,16 +163,16 @@ public class MainActivity extends AppCompatActivity {
         map.put("email",edtEmail.getText().toString());
         map.put("password",edtPassword.getText().toString());
 
-        Call<LoginResult> call=retrofitInterface.executeLogin(map);
-        call.enqueue(new Callback<LoginResult>() {
+        Call<User> call=retrofitInterface.executeLogin(map);
+        call.enqueue(new Callback<User>() {
             @Override
-            public void onResponse(Call<LoginResult> call, Response<LoginResult> response) {
+            public void onResponse(Call<User> call, Response<User> response) {
                 if (response.code() == 200) {
 
                     Toast.makeText(getApplicationContext(),"success",Toast.LENGTH_LONG).show();
-                    LoginResult result = response.body();
+                    User result = response.body();
                     saveSession(result.getId());
-                    Intent intent=new Intent(getApplicationContext(),HomeActivity.class);
+                    Intent intent=new Intent(getApplicationContext(), HomeActivity.class);
                     startActivity(intent);
                     finish();
 
@@ -181,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<LoginResult> call, Throwable t) {
+            public void onFailure(Call<User> call, Throwable t) {
                 Toast.makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_LONG).show();
 
             }

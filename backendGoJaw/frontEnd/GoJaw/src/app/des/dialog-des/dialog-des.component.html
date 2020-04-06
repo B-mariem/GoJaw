@@ -1,0 +1,20 @@
+<mat-dialog-content [formGroup]="form">
+    <p>{{Mydata.id_destination}}</p>
+
+    <mat-form-field>
+      <input matInput
+              placeholder="Latitude"
+             formControlName="latitude">
+  </mat-form-field>
+  
+  
+  <mat-form-field>
+    <input matInput
+            placeholder="Longitude"
+           formControlName="longitude">
+</mat-form-field> 
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <button class="mat-raised-button mat-primary"(click)="save()">Save</button>
+    </mat-dialog-actions>
+    

@@ -1,6 +1,6 @@
-package com.mariem.gojaw;
+package com.mariem.gojaw.models;
 
-public class LoginResult {
+public class User {
     private String id;
     private String name;
     private String email;

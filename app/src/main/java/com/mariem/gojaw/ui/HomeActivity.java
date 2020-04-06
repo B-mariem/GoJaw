@@ -1,12 +1,10 @@
-package com.mariem.gojaw;
+package com.mariem.gojaw.ui;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -14,8 +12,23 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationView;
+import com.mariem.gojaw.DATA.Constant;
+import com.mariem.gojaw.DATA.RetrofitInterface;
+import com.mariem.gojaw.R;
+import com.mariem.gojaw.adapters.ListeGouvAdapter;
+import com.mariem.gojaw.models.Gouvernorat;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -26,27 +39,17 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     Toolbar toolbar;
     NavigationView navigationView;
     ActionBarDrawerToggle toggle;
-    ImageView posBizerte, posTozeur;
-
+    Retrofit retrofit;
+    RetrofitInterface retrofitInterface;
+    RecyclerView rvGouv;
+    private ListeGouvAdapter listeGouvAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-        Toast.makeText(getApplicationContext(), "BienVenue" + sharedpreferences.getString("ID_USER", null)
-                , Toast.LENGTH_LONG).show();
-        posBizerte = findViewById(R.id.pos_bizerte);
-        posTozeur = findViewById(R.id.pos_Tozeur);
-       /*posBizerte.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-              Intent intent= new Intent(getApplicationContext(),VilleActivity.class);
-              intent.putExtra("GOUV","bizerte");
-              startActivity(intent);
-           }
-       });
-*/
+
+
         drawerLayout = findViewById(R.id.drawer);
         toolbar = findViewById(R.id.toolbar);
         navigationView = findViewById(R.id.navigationView);
@@ -58,7 +61,42 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
+        retrofit = new Retrofit.Builder()
+                .baseUrl(Constant.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create()).build();
+        retrofitInterface = retrofit.create(RetrofitInterface.class);
+        getAllVille();
 
+
+
+    }
+
+    private void getAllVille() {
+
+        Call<List<Gouvernorat>> call=retrofitInterface.getAllGouv();
+        call.enqueue(new Callback<List<Gouvernorat>>() {
+            @Override
+            public void onResponse(Call<List<Gouvernorat>> call, Response<List<Gouvernorat>> response) {
+                showData(response.body());
+
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Gouvernorat>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void showData(List<Gouvernorat> body) {
+        rvGouv = findViewById(R.id.rv_list_gouv);
+       // RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
+       GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(),2);
+        rvGouv.setLayoutManager(gridLayoutManager);
+
+       listeGouvAdapter= new ListeGouvAdapter(this, body);
+        rvGouv.setAdapter(listeGouvAdapter);
     }
 
 
@@ -86,16 +124,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         return false;
     }
 
-    public void click(View view) {
-        Intent intent = new Intent(getApplicationContext(), VilleActivity.class);
-        switch (view.getId()) {
-            case R.id.pos_bizerte:
-                intent.putExtra("GOUV", "bizerte");
-                startActivity(intent);
-                break;
-            case R.id.pos_Tozeur:
-                intent.putExtra("GOUV", "tozeur");
-                startActivity(intent);
-        }
-    }
+
+
 }

@@ -22,7 +22,11 @@ var villeschema=new Schema(
             type:String,
             required:true
 
-        } 
+        },
+        position: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Position"
+          }
     },
     {
         collection: 'villes'

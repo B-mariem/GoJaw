@@ -11,6 +11,10 @@ var gouvernortschema=new Schema(
             lowercase: true,
             required:true
         },
+        image:{
+            type: String,
+            required:true
+        },
     
     },
     {

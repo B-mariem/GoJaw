@@ -17,10 +17,13 @@ export class RootNavComponent {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver,private apiService: ApiService) {}
+  constructor(private breakpointObserver: BreakpointObserver,private apiService: ApiService) {
+   
+  }
   logout(){
     this.apiService.doLogout()
 
   }
+ 
 
 }
