@@ -4,12 +4,19 @@ import { SigninAdminComponent } from './admin/signin-admin/signin-admin.componen
 import { ProfileAdminComponent } from './admin/profile-admin/profile-admin.component';
 import { AuthGuard } from './service/auth.guard';
 import { CreateGouvComponent } from './gouvernorat/create-gouv/create-gouv.component';
-import { CreateVilleComponent } from './ville/create-ville/create-ville.component';
+
 import { CreateEventComponent } from './evenement/create-event/create-event.component';
 import { CreateDesComponent } from './des/create-des/create-des.component';
-import { AffStattistiqueComponent } from './statistique/aff-stattistique/aff-stattistique.component';
-import { AffFeedbackComponent } from './feedback/aff-feedback/aff-feedback.component';
+
 import { EditDesComponent } from './des/edit-des/edit-des.component';
+import { SearchGouvComponent } from './gouvernorat/search-gouv/search-gouv.component';
+import { ListGouvComponent } from './gouvernorat/list-gouv/list-gouv.component';
+import { NavGouvComponent } from './gouvernorat/nav-gouv/nav-gouv.component';
+import { SearchDesComponent } from './des/search-des/search-des.component';
+import { ValidEventComponent } from './evenement/valid-event/valid-event.component';
+import { ListEventComponent } from './evenement/list-event/list-event.component';
+import { SearchEventComponent } from './evenement/search-event/search-event.component';
+import { CreateCategorieComponent } from './categorie/create-categorie/create-categorie.component';
 
 
 const routes: Routes = [
@@ -17,12 +24,19 @@ const routes: Routes = [
   {path:"admin",component:SigninAdminComponent},
   { path: 'admin-profile/:id', component: ProfileAdminComponent, canActivate: [AuthGuard] },
   {path:"create-gouv",component:CreateGouvComponent},
-  {path:"create-ville",component:CreateVilleComponent},
+
   {path:"create-des",component:CreateDesComponent},
   {path:"edit-des",component:EditDesComponent},
   {path:"create-event",component:CreateEventComponent},
-  {path:"statistique",component:AffStattistiqueComponent},
-  {path:"feedback",component:AffFeedbackComponent},
+  
+  {path:"search-Gouv/:gouv",component:SearchGouvComponent},
+  {path:"list-gouv",component:ListGouvComponent},
+  {path:"search-destination/:gouv",component:SearchDesComponent},
+  {path:"valid-event",component:ValidEventComponent},
+  {path:"list-event",component:ListEventComponent},
+  {path:"search-event/:gouv",component:SearchEventComponent},
+  {path:"create-categorie",component:CreateCategorieComponent},
+
 ];
 
 @NgModule({

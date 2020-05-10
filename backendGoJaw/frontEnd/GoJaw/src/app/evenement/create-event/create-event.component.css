@@ -1,0 +1,11 @@
+mat-grid-tile{
+  
+background-color:rgb(233, 224, 211);
+text-transform: capitalize;
+border-color: black;
+  
+
+}
+mat-grid-list{
+    margin: 100px;
+}

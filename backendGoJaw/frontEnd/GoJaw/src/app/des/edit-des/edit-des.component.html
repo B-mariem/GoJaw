@@ -1,4 +1,5 @@
 <app-root-nav>
+  <app-des-navbar> </app-des-navbar>
     <div class="container">
         <table class="table table-bordered" >
           <thead class="table-success">
@@ -10,11 +11,11 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let destination of destination;">
+            <tr *ngFor="let destination of TabDestinations;">
               <td>{{destination.libelle}}</td>
               <td>{{destination.categorie}}</td>
               <td>{{destination.gouv}}</td>
-              <td><button type="button" *ngIf="!destination.position" class="btn btn-warning"(click)="openDialogAddPosition(destination._id)">add Position</button>
+              <td><button type="button" class="btn btn-warning"(click)="openDialogEditDestination(destination._id)">Edit</button>
                 
             </td>        
             </tr>

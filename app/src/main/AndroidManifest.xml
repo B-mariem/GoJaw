@@ -18,11 +18,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.CreateEventActivity"></activity>
-        <activity android:name=".ui.DestinationActivity" />
-        <activity android:name=".ui.HomeActivity" />
+        <activity android:name=".ui.showEventActivity" />
+        <activity android:name=".ui.ListEventsActivity" />
+        <activity android:name=".ui.CreateEventActivity" />
+        <activity android:name=".ui.Destinations_eventsActivity" />
+        <activity android:name=".ui.MainActivity" />
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.HomeActivity"
             android:transcriptMode="alwaysScroll"
             android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>

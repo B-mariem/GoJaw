@@ -32,11 +32,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
     Button login;
-    TextView signup;
+    Button signup;
     EditText edtEmail,edtPassword;
     Retrofit retrofit;
     RetrofitInterface retrofitInterface;
-    LinearLayout linearLayout;
+
 
     private SharedPreferences sharedpreferences;
     private String MyPREFERENCES = "prefs";
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        linearLayout = findViewById(R.id.linear_layout);
+
 
         if (isConnected()) {
             openHomeActivity();
@@ -86,8 +86,9 @@ public class MainActivity extends AppCompatActivity {
         builder.setCancelable(true);
 
 
-        Button signupBtn = view.findViewById(R.id.signup);
+        final Button signupBtn = view.findViewById(R.id.signup);
         final EditText nameEdit = view.findViewById(R.id.nameEdit);
+        final EditText userUrlEdit = view.findViewById(R.id.edt_user_url);
         final EditText emailEdit = view.findViewById(R.id.emailEdit);
         final EditText passwordEdit = view.findViewById(R.id.passwordEdit);
 
@@ -97,9 +98,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 final String email=emailEdit.getText().toString();
                 final String password=passwordEdit.getText().toString();
+
                 if(checkfields(email,password)!=false){
                     HashMap<String,String> map=new HashMap<>();
                     map.put("name",nameEdit.getText().toString());
+                    map.put("userURL",userUrlEdit.getText().toString());
                     map.put("email",email);
                     map.put("password",password);
                     Call<Void> call=retrofitInterface.executeSignup(map);
@@ -109,16 +112,17 @@ public class MainActivity extends AppCompatActivity {
                             if(response.code()==200){
 
                                 nameEdit.setText(" ");
+                                userUrlEdit.setText(" ");
                                 emailEdit.setText(" ");
                                 passwordEdit.setText(" ");
 
                                 startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                                finish();
+                                finishAffinity();
 
 
 
                             }else if (response.code() == 400) {
-                                Snackbar.make(linearLayout,
+                                Snackbar.make(signupBtn,
                                         "Already registered", Snackbar.LENGTH_LONG).show();
                             }
 
@@ -126,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<Void> call, Throwable t) {
-                            Snackbar.make(linearLayout,
+                            Snackbar.make(signupBtn,
                                     t.getMessage(), Snackbar.LENGTH_LONG).show();
 
                         }
@@ -169,12 +173,11 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.code() == 200) {
 
-                    Toast.makeText(getApplicationContext(),"success",Toast.LENGTH_LONG).show();
                     User result = response.body();
                     saveSession(result.getId());
                     Intent intent=new Intent(getApplicationContext(), HomeActivity.class);
                     startActivity(intent);
-                    finish();
+                   finishAffinity();
 
                 }
                 if(response.code()==404){

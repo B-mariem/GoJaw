@@ -26,6 +26,19 @@ gouvernoratroute.route('/all').get((req, res) => {
   })
 })
 
+/*------------------search---------------------/*/
+gouvernoratroute.route('/search/:gouv').get((req, res) => {
+  var query = { gouv: req.params.gouv };
+  gouvernoratModel.find(query, (error, data) => {
+    if (error) {
+      return next(error)
+    } else {
+
+      res.json(data)
+    }
+  })
+})
+
 // Get single gouvernorat
 gouvernoratroute.route('/read/:id').get((req, res) => {
   gouvernoratModel.findById(req.params.id, (error, data) => {
@@ -37,19 +50,31 @@ gouvernoratroute.route('/read/:id').get((req, res) => {
   })
 })
 
-/////vile_gouv
-  ////// ville _gou
-  gouvernoratroute.post("/add_ville/:id", (req, res, next) => {
-    gouvernoratModel.findOneAndUpdate({_id:req.params.id},
-           {$push:{ ville:req.body}}).then((gouvernorats) =>{
-             res.json(gouvernorats);
-         })
-         .catch((err)=> {
-         
-           res.json(err);
-         });
-       });
 
-
-
+/*-------------edit-------------*/
+gouvernoratroute.route('/update/:id').put((req, res, next) => {
+ gouvernoratModel.findByIdAndUpdate(req.params.id, {
+    $set: req.body
+  }, (error, data) => {
+    if (error) {
+      return next(error);
+    
+    } else {
+      res.json(data)
+      console.log('Data updated successfully')
+    }
+  })
+})
+// Delete Gouv
+gouvernoratroute.route('/delete/:gouv').delete((req, res, next) => {
+  gouvernoratModel.findOneAndRemove({gouv:req.params.gouv}, (error, data) => {
+    if (error) {
+      return next(error);
+    } else {
+      res.status(200).json({
+        msg: data
+      })
+    }
+  })
+})
 module.exports = gouvernoratroute;

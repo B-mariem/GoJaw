@@ -1,6 +1,31 @@
 <app-root-nav>
-    <p>create-event works!</p>
-    <router-outlet></router-outlet>
-
+<app-navbar-event></app-navbar-event>
+  <div class="row justify-content-center">
+    <form [formGroup]="eventForm" (ngSubmit)="onSubmit()" *ngIf="!show" >
+        <div class="form-group">
+          <label>Titre</label>
+          <input class="form-control" type="text" formControlName="titre">
+        </div>
+        <div class="form-group">
+          <label>Date</label>
+          <input class="form-control" type="date" formControlName="date">
+        </div>
+        <div class="form-group">
+          <label>Gouv</label>
+          <select class="custom-select form-control" (change)="updateGouv($event.target.value)"
+          formControlName="gouv">
+            <option *ngFor="let item of tabGouv" value="{{item.gouv}}">{{item.gouv}}
+            </option>
+          </select>
+         
+        </div>
+        <div class="form-group">
+          <button class="btn btn-success btn-lg btn-block" type="submit">next </button>
+        </div>
+      </form>
+    </div>
+   <div *ngIf="show">
+     <app-valid-event [date]="date" [gouv]="gouv" [titre]="titre"></app-valid-event>
+   </div>
 </app-root-nav>
 

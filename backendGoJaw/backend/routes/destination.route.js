@@ -2,7 +2,7 @@ const express = require('express');
 const destinationroute = express.Router();
 // gouv model
 let destinationModel = require('../Models/destinationModel');
-let positionModel = require('../Models/positionModel');
+
 
 // Add destination
 destinationroute.route('/create').post((req, res, next) => {
@@ -22,30 +22,70 @@ destinationroute.route('/').get((req, res) => {
     } else { 
       res.json(data)
     }
-  }).populate("position","-_id -__v");
+  })
 })
 
-destinationroute.route("/addPosition/:id").post((req, res)=> {
-  positionModel.create(req.body).then((position) =>{
-      return destinationModel.findOneAndUpdate({ _id: req.params.id }, {$push: {position: position._id}}, { new: true });
-    }).then((destination)=> {
-       res.json(destination);
-    })
-    .catch((err) =>{
-      res.json(err);
-    });
-});
+
 //get by gouv
 destinationroute.route('/byGouv').post((req, res) => {
-
 destinationModel.find(({gouv:req.body.gouv}),(error, data) => {
   if (error) {
-    res.status(401).send("pas")
+    res.status(401)
   } else { 
     res.status(200).send(data)
   }
-}).populate("position","-_id -__v").select("-__v -gouv")
-  
+})
+})
+destinationroute.route('/read/:id').get((req, res) => {
+  destinationModel.findById(req.params.id, (error, data) => {
+    if (error) {
+      return next(error)
+    } else {
+      res.json(data)
+    }
+  })
+})
+
+
+  destinationroute.route('/byGouv/:gouv').get((req, res) => {
+    destinationModel.find(({gouv:req.params.gouv}),(error, data) => {
+      if (error) {
+        res.status(401)
+      } else { 
+        res.status(200).send(data)
+      }
+    })
+      
+      })
+
+      
+    
+/*----update----*/
+destinationroute.route('/update/:id').put((req, res, next) => {
+ destinationModel.findByIdAndUpdate(req.params.id, {
+     $set: req.body
+   }, (error, data) => {
+     if (error) {
+       return next(error);
+     
+     } else {
+       res.json(data)
+       console.log('Data updated successfully')
+     }
+   })
+ })
+
+/*-----delete----*/
+  destinationroute.route('/delete/:gouv').delete((req, res, next) => {
+    destinationModel.findOneAndRemove({gouv:req.params.gouv}, (error, data) => {
+      if (error) {
+        return next(error);
+      } else {
+        res.status(200).json({
+          msg: data
+        })
+      }
+    })
   })
   module.exports = destinationroute;
  

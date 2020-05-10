@@ -23,9 +23,9 @@ const adminRouter = require('../backend/routes/admin.route')
 
 const userRouter = require('../backend/routes/user.route')
 const gouvRouter=require('../backend/routes/gouv.route')
-const villeRouter=require('../backend/routes/ville.route')
 const destinationRouter=require('../backend/routes/destination.route')
 const eventRouter=require('../backend/routes/event.route')
+const categoreiRouter=require('../backend/routes/categorie.route')
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -36,9 +36,9 @@ app.use(cors());
 app.use('/admin',adminRouter)
 app.use('/user',userRouter)
 app.use('/gouv',gouvRouter)
-app.use('/ville',villeRouter)
 app.use('/destination',destinationRouter)
 app.use('/event',eventRouter)
+app.use('/categorie',categoreiRouter)
 // Create port
 const port = process.env.PORT || 4000;
 app.listen(port, () => {

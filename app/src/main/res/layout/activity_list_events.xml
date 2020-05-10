@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:openDrawer="end"
+    android:id="@+id/drawer"
+    android:background="#fff"
+
+    tools:context=".ui.ListEventsActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/toolbar"
+            android:background="#fff" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rv_list_event_user"
+            android:layout_below="@id/toolbar"
+            android:foregroundGravity="center_horizontal"
+            android:layout_marginLeft="100dp"
+
+            android:layout_margin="10dp"/>
+    </RelativeLayout>
+
+
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/navigationView"
+        app:menu="@menu/menu_item"
+        app:headerLayout="@layout/header"
+        android:background="#fff"
+        android:layout_gravity="start"
+        app:itemTextColor="#050505" />
+
+
+</androidx.drawerlayout.widget.DrawerLayout>

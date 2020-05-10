@@ -4,25 +4,25 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { admin } from '../Models/admin';
+import { MatDialog } from '@angular/material';
+import { DialogDesComponent } from '../des/dialog-des/dialog-des.component';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
   adminpoint: string = 'http://localhost:4000/admin';
-  gouvpoint: string = 'http://localhost:4000/gouv';
-  villepoint: string = 'http://localhost:4000/ville';
-  destinationpoint: string = 'http://localhost:4000/destination';
+
   headers = new HttpHeaders().set('Content-Type', 'application/json');
   currentAdmin = {};
   constructor(private http: HttpClient, public router: Router) { }
-
+ 
    //////////////////////////////////////////////////////
   //admin
   /////////////////////////////////////////////////////
    // Sign-up
-   signUp(admin: admin): Observable<any> {
+   signUp(admin): Observable<any> {
     let api = `${this.adminpoint}/register-admin`;
     return this.http.post(api, admin)
       .pipe(
@@ -31,7 +31,7 @@ export class ApiService {
   }
 
   // Sign-in
-  signIn(admin: admin) {
+  signIn(admin) {
     return this.http.post<any>(`${this.adminpoint}/signin`, admin)
       .subscribe((res: any) => {
         localStorage.setItem('access_token', res.token)
@@ -81,48 +81,13 @@ export class ApiService {
     }
     return throwError(msg);
   }
-  /*--------------------gouvernorat--------------------------*/
-  createGouv(obejct): Observable<any> {
-    let api = `${this.gouvpoint}/create`;
-    return this.http.post(api, obejct)
-      .pipe(
-        catchError(this.handleError)
-      )
+ 
 
-  }
+ 
 
-  getGouvs() {
-    return this.http.get(`${this.gouvpoint}/all`);
-  }
-  /*----------------------ville-------------------------*/
-  createVille(obejct): Observable<any> {
-    let api = `${this.villepoint}/create`;
-    return this.http.post(api, obejct)
-      .pipe(
-        catchError(this.handleError)
-      )
 
-  }
-  getVilles() {
-    return this.http.get(`${this.villepoint}`);
-  }
-    /*----------------------Destination-------------------------*/
-  createDestination(obejct): Observable<any> {
-    let api = `${this. destinationpoint}/create`;
-    return this.http.post(api, obejct)
-      .pipe(
-        catchError(this.handleError)
-      )
 
-  }
-  getDestinations() {
-    return this.http.get(`${this.destinationpoint}`);
-  }
-  addPosition(id, data): Observable<any> {
-    let url = `${this.destinationpoint}/addPosition/${id}`;
-    return this.http.post(url, data, { headers: this.headers }).pipe(
-      catchError(this.handleError)
-    )
-  }
-  
+ 
+
+ 
 }

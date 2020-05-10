@@ -10,6 +10,13 @@
         android:layout_margin="8dp"
         android:hint="name"
         android:id="@+id/nameEdit" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:hint="user url"
+        android:inputType="textUri"
+        android:id="@+id/edt_user_url" />
 
     <EditText
         android:layout_width="match_parent"

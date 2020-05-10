@@ -27,6 +27,7 @@ router.route("/register-user").post((req, res, next) => {
                 const user = new userSchema({
             
                     name: req.body.name,
+                    userURL:req.body.userURL,
                     email:req.body.email,
                     password: hash,
                 
@@ -84,16 +85,16 @@ router.route("/signin").post((req, res, next) => {
 
 
 // Get Single User
-router.route('/admin-profile/:id').get((req, res, next) => {
-    userSchema.findById(req.params.id, (error, data) => {
-        if (error) {
-            return next(error);
-        } else {
-            res.status(200).json({
-                msg: data
-            })
-        }
-    })
+router.route('/getProfil').post((req, res, next) => {
+    userSchema.findById(req.body.idUser).then((user)=>{
+   
+        res.status(200).send(user)
+    }).catch(err => {
+        return res.status(401)
+        });
+           
+        
+   
 })
 
 

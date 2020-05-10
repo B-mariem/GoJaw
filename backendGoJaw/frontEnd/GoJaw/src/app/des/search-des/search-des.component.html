@@ -1,0 +1,32 @@
+<app-root-nav>
+  <app-des-navbar> </app-des-navbar> 
+  <div id="searchDiv" class="container">
+      <p>resultat de recherche : {{gouv}}</p>
+          <div class="table-responsive" style="margin-top: 50px;">
+            <table class="table">
+                <thead >
+                    <tr>
+                      <th>Destination</th>
+                      <th>Categorie</th>
+                      <th>Longitude</th>
+                      <th>Altitude</th>
+                      <th colspan=2>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of tabDestinations;">
+                      <td>{{item.libelle}}</td>
+                      <td>{{item.categorie}}</td>
+                      <td>{{item.latitude}}</td>
+                      <td>{{item.longitude}}</td>
+                      <td><button type="button" class="btn btn-warning"(click)="openDialogEditDestination(item._id)">Edit</button></td>
+   
+                    </tr>
+                  </tbody>
+               
+            </table>
+          </div>
+          
+            
+        </div>
+      </app-root-nav>

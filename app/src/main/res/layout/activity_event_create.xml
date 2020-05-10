@@ -1,23 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-        app:cardCornerRadius="10dp"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+
+    tools:context=".ui.CreateEventActivity">
+    <RelativeLayout
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.CreateEventActivity"
         android:padding="5dp">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-    <EditText
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/logo3"
+           />
+
+        <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Titre de l'event"
         android:id="@+id/edt_name"
-        android:layout_margin="10dp"/>
+        android:layout_margin="10dp"
+        android:layout_below="@id/profile_image"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -26,6 +39,8 @@
             android:layout_below="@id/edt_name"
             android:gravity="center_horizontal"
             android:layout_margin="10dp"
+            android:background="@drawable/button_bg_rounded_corners"
+            android:textColor="#fff"
             />
 
         <TextView
@@ -59,11 +74,15 @@
         android:layout_below="@+id/aSpinner"
         android:id="@+id/btn_send_event"
         android:text="valide"
-        android:layout_centerHorizontal="true"/>
+     android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/button_bg_rounded_corners"
+        android:textColor="#fff"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/txt"
         android:layout_below="@id/btn_send_event"/>
     </RelativeLayout>
-    </androidx.cardview.widget.CardView>
+
+</androidx.core.widget.NestedScrollView>

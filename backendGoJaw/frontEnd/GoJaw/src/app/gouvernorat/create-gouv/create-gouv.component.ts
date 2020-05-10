@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/service/api.service';
+import { Router } from '@angular/router';
+import { GouvServiceService } from 'src/app/service/gouv-service/gouv-service.service';
 
 @Component({
   selector: 'app-create-gouv',
@@ -11,10 +13,10 @@ export class CreateGouvComponent implements OnInit {
   gouvForm: FormGroup;
 show:boolean
 tabGouv:any  
-  constructor(public fb: FormBuilder,private apiService: ApiService) { 
-    this.apiService.getGouvs().subscribe((data)=>{
-      this.tabGouv=data
-    })
+  constructor(public fb: FormBuilder,
+    private gouvService: GouvServiceService,
+    private router: Router) { 
+  
 
     this.mainForm();
   }
@@ -35,19 +37,20 @@ tabGouv:any
   get myForm(){
     return this.gouvForm.controls;
   }
-  showDevAdd(){
-    this.show= !this.show;
-  }
+ 
   onSubmit() {
    
-      this.apiService.createGouv(this.gouvForm.value).subscribe(
+      this.gouvService.createGouv(this.gouvForm.value).subscribe(
         (res) => {
           alert('gouv successfully created!')
         this.gouvForm.reset()
-        location.reload()
+       this.router.navigate(["list-gouv"])
         }, (error) => {
           alert(error);
         });
     
   }
+ 
+
+  
 }

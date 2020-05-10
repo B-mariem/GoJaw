@@ -1,5 +1,6 @@
 package com.mariem.gojaw.ui;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,11 +18,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationView;
 import com.mariem.gojaw.DATA.Constant;
+import com.mariem.gojaw.DATA.Data;
 import com.mariem.gojaw.DATA.RetrofitInterface;
 import com.mariem.gojaw.R;
 import com.mariem.gojaw.adapters.ListeGouvAdapter;
 import com.mariem.gojaw.models.Gouvernorat;
 
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -30,7 +33,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-
+//implements NavigationView.OnNavigationItemSelectedListener
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private SharedPreferences sharedpreferences;
     private String MyPREFERENCES = "prefs";
@@ -39,15 +42,19 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     Toolbar toolbar;
     NavigationView navigationView;
     ActionBarDrawerToggle toggle;
+
     Retrofit retrofit;
     RetrofitInterface retrofitInterface;
     RecyclerView rvGouv;
     private ListeGouvAdapter listeGouvAdapter;
 
+    @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        Data.getInstance().getmDataSelected().clear();
 
 
         drawerLayout = findViewById(R.id.drawer);
@@ -65,13 +72,17 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 .baseUrl(Constant.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create()).build();
         retrofitInterface = retrofit.create(RetrofitInterface.class);
-        getAllVille();
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putString("Gouv", "");
+        editor.apply();
+        getAllGouv();
 
 
 
     }
 
-    private void getAllVille() {
+    private void getAllGouv() {
 
         Call<List<Gouvernorat>> call=retrofitInterface.getAllGouv();
         call.enqueue(new Callback<List<Gouvernorat>>() {
@@ -94,6 +105,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
        // RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
        GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(),2);
         rvGouv.setLayoutManager(gridLayoutManager);
+        Collections.sort(body,Gouvernorat.sortByGouv);
 
        listeGouvAdapter= new ListeGouvAdapter(this, body);
         rvGouv.setAdapter(listeGouvAdapter);
@@ -102,12 +114,25 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        Intent intent=new Intent(getApplicationContext(), ListEventsActivity.class);
         switch (menuItem.getItemId()) {
-            case R.id.profile:
-                Toast.makeText(getApplicationContext(), "Profile Selected", Toast.LENGTH_SHORT).show();
+            case R.id.home:
+                Toast.makeText(getApplicationContext(), "Home Selected", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.event:
-                Toast.makeText(getApplicationContext(), "event    us Selected", Toast.LENGTH_SHORT).show();
+                intent.putExtra(Constant.ARG_TYPE_EVENT,Constant.MES_EVENT_PUBLIC);
+                startActivity(intent);
+                finishAffinity();
+                break;
+            case R.id.participated_events:
+                intent.putExtra(Constant.ARG_TYPE_EVENT,Constant.MES_EVENT_PARTICIPATED);
+                startActivity(intent);
+                finishAffinity();
+                break;
+            case R.id.private_event:
+                intent.putExtra(Constant.ARG_TYPE_EVENT,Constant.MES_EVENT_PRIVATE);
+                startActivity(intent);
+                finishAffinity();
                 break;
 
             case R.id.logout:

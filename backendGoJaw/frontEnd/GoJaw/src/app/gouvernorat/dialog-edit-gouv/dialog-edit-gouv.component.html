@@ -1,0 +1,20 @@
+<mat-dialog-content [formGroup]="form">
+    <p>Edit Gouvernorat</p>
+
+    <mat-form-field>
+      <input matInput
+             formControlName="gouv">
+  </mat-form-field><br>
+  
+  
+  <mat-form-field>
+    <input matInput
+           formControlName="image">
+</mat-form-field> 
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <button class="mat-raised-button mat-primary"(click)="edit()">save</button>
+      <button class="mat-raised-button mat-primary"(click)="close()">close</button>
+    </mat-dialog-actions>
+    
+

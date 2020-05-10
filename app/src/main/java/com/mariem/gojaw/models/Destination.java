@@ -1,29 +1,32 @@
 package com.mariem.gojaw.models;
 
-public class Destination{
+import java.util.Comparator;
+
+public class Destination {
     private String id;
     private String libelle;
-    private Position position;
     private String image;
     private String categorie;
     private String distance;
-    private int heure_arrive_des;
-    private int minute_arrive_des;
 
-    public int getHeure_arrive_des() {
-        return heure_arrive_des;
+    String latitude;
+    String longitude;
+
+
+    public String getLatitude() {
+        return latitude;
     }
 
-    public void setHeure_arrive_des(int heure_arrive_des) {
-        this.heure_arrive_des = heure_arrive_des;
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
     }
 
-    public int getMinute_arrive_des() {
-        return minute_arrive_des;
+    public String getLongitude() {
+        return longitude;
     }
 
-    public void setMinute_arrive_des(int minute_arrive_des) {
-        this.minute_arrive_des = minute_arrive_des;
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 
     private Boolean isSelected;
@@ -54,10 +57,6 @@ public class Destination{
         this.categorie = categorie;
     }
 
-    public void setPosition(Position position) {
-        this.position = position;
-    }
-
     public String getImage() {
         return image;
     }
@@ -82,18 +81,25 @@ public class Destination{
         this.libelle = libelle;
     }
 
-    public Position getPosition() {
-        return position;
-    }
-
     @Override
     public String toString() {
         return "Destination{" +
                 "id='" + id + '\'' +
                 ", libelle='" + libelle + '\'' +
+                ", image='" + image + '\'' +
+                ", categorie='" + categorie + '\'' +
                 ", distance='" + distance + '\'' +
-                ", temps_arrive=" + heure_arrive_des +":"+minute_arrive_des+
+                ", latitude='" + latitude + '\'' +
+                ", longitude='" + longitude + '\'' +
                 ", isSelected=" + isSelected +
                 '}';
     }
+
+   public static final Comparator<Destination> sortByDes=new Comparator<Destination>() {
+       @Override
+       public int compare(Destination o1, Destination o2) {
+           return o1.distance.compareTo(o2.distance);
+
+       }
+   };
 }

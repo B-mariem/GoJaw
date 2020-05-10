@@ -7,10 +7,8 @@ const Destination = mongoose.model(
     image:{type:String,unique:true,required:true},
     categorie:{type:String,required:true},
     gouv:{type:String,required:true}, 
-    position: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Position"
-    }
+    latitude:{type:Number,required:true},
+    longitude:{type:Number,required:true},
   })
 );
 

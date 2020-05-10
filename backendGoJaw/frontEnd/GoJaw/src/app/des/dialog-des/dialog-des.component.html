@@ -1,20 +1,60 @@
-<mat-dialog-content [formGroup]="form">
-    <p>{{Mydata.id_destination}}</p>
-
+<mat-dialog-content [formGroup]="form" >
+  <p>Edit Gouvernorat</p>
     <mat-form-field>
-      <input matInput
-              placeholder="Latitude"
-             formControlName="latitude">
-  </mat-form-field>
-  
-  
+      <div class="form-group">
+      <label>Libellé</label>
+      <input matInput class="form-control" formControlName="libelle">
+    </div>
+  </mat-form-field><br>
+
   <mat-form-field>
-    <input matInput
-            placeholder="Longitude"
-           formControlName="longitude">
+    <div class="form-group">
+    <label>image</label>
+    <input matInput class="form-control" formControlName="image">
+  </div>
+</mat-form-field><br>
+
+<mat-form-field>
+  <div class="form-group">
+  <label>Categorie </label>
+    <select class="custom-select form-control" (change)="updateCategorie($event.target.value)"
+    formControlName="categorie">
+      <option *ngFor="let item of tabCategorie" value="{{item.libelle}}">{{item.libelle}}
+      </option>
+    </select>
+  </div>
+</mat-form-field><br>
+
+<mat-form-field>
+
+  <div class="form-group">
+    <label>Gouv</label>
+    <select class="custom-select form-control" (change)="updateGouv($event.target.value)"
+    formControlName="gouv">
+      <option *ngFor="let item of tabGouv" value="{{item.gouv}}">{{item.gouv}}
+      </option>
+    </select>
+   
+  </div>
+
+</mat-form-field><br>
+    <mat-form-field>
+      <div class="form-group">
+      <label>Latitude</label>
+      <input matInput  class="form-control" formControlName="latitude">
+    </div>
+  </mat-form-field><br>
+<mat-form-field>
+  <div class="form-group">
+    <label>Longitude</label>
+    <input matInput class="form-control"  formControlName="longitude">
+  </div>
+
 </mat-form-field> 
+
     </mat-dialog-content>
     <mat-dialog-actions>
-      <button class="mat-raised-button mat-primary"(click)="save()">Save</button>
+      <button class="mat-raised-button"(click)="edit()">Save</button>
+      <button class="mat-raised-button" style="margin-left:100px;" (click)="close()">Close</button>
     </mat-dialog-actions>
     

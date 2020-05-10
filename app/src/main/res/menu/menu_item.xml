@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/profile"
-        android:title="Profile" />
+        android:id="@+id/home"
+        android:title="Home" />
 
     <item
         android:id="@+id/event"
-        android:title="Événements" />
+        android:title="mes événements" />
+    <item
+        android:id="@+id/participated_events"
+        android:title="Événements participés" />
+    <item
+        android:id="@+id/private_event"
+        android:title="Événements privé" />
 
     <item
         android:id="@+id/logout"

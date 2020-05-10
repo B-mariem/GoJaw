@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+    <RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:padding="5dp" android:layout_height="wrap_content"
+    app:cardCornerRadius="5dp"
+    android:layout_marginBottom="15dp">
+    <ImageView
+        android:id="@+id/img_destination"
+        android:layout_width="350dp"
+        android:layout_height="150dp"
+        android:scaleType="center" />
+
+    <TextView
+            android:id="@+id/tv_libelle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:textAlignment="center"
+            android:textSize="16dp"
+            android:textAllCaps="true"
+            android:textColor="#0E0E0E"
+            android:layout_margin="5dp"
+            android:layout_below="@id/img_destination"/>
+
+        <TextView
+            android:id="@+id/tv_categorie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#0C0C0C"
+            android:layout_below="@id/tv_libelle"
+            android:layout_marginLeft="10dp"/>
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:id="@+id/checkbox"
+            android:layout_marginRight="5dp"
+            android:layout_below="@id/tv_libelle"/>
+
+
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/destination"
+        android:id="@+id/icon"
+        android:layout_below="@id/tv_categorie"
+        android:layout_marginLeft="15dp"
+        android:padding="2dp"/>
+    <TextView
+        android:id="@+id/tv_km"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:textColor="#0C0C0C"
+        android:layout_toRightOf="@id/icon"
+        android:layout_below="@id/tv_categorie"
+        android:padding="2dp"
+
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_km"
+        android:id="@+id/linear"
+        android:orientation="vertical">
+
+    </LinearLayout>
+    </RelativeLayout>
+
+
+
+
+
+
+
+
+
+
+

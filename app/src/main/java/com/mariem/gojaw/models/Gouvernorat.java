@@ -1,5 +1,7 @@
 package com.mariem.gojaw.models;
 
+import java.util.Comparator;
+
 public class Gouvernorat {
     private String id ;
     private String gouv;
@@ -37,4 +39,11 @@ public class Gouvernorat {
     public void setImage(String image) {
         this.image = image;
     }
+
+    public static final Comparator<Gouvernorat> sortByGouv =new Comparator<Gouvernorat>() {
+        @Override
+        public int compare(Gouvernorat o1, Gouvernorat o2) {
+            return o1.gouv.compareTo(o2.gouv);
+        }
+    };
 }

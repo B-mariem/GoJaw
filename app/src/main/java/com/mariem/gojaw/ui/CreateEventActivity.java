@@ -25,7 +25,6 @@ import com.mariem.gojaw.DATA.Data;
 import com.mariem.gojaw.DATA.RetrofitInterface;
 import com.mariem.gojaw.R;
 import com.mariem.gojaw.adapters.CreateEventAdapter;
-import com.mariem.gojaw.adapters.ListDestinationAdapter;
 import com.mariem.gojaw.models.Event;
 
 import java.util.Calendar;
@@ -41,8 +40,8 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
 TextView txtDateEvent,txt;
 EditText edtTitreEvent;
 Button btnDateEvent;
-int MM,yyyy,dd,hh,mm;
-int  MM_x,yyyy_x,dd_x,hh_x,mm_x;
+int MM,yyyy,dd;
+int  MM_x,yyyy_x,dd_x;
     RecyclerView myRecyclerView;
     CreateEventAdapter eventDesAdapter;
     Button btnSend;
@@ -55,79 +54,23 @@ int  MM_x,yyyy_x,dd_x,hh_x,mm_x;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_create);
-        btnDateEvent =findViewById(R.id.btn_date_event);
-        txtDateEvent =findViewById(R.id.txt_date_event);
-        edtTitreEvent =findViewById(R.id.edt_name);
-        btnSend=findViewById(R.id.btn_send_event);
+        initUi();
         retrofit=new Retrofit.Builder()
                 .baseUrl(Constant.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create()).build();
         retrofitInterface=retrofit.create(RetrofitInterface.class);
+
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-        Spinner aSpinner = findViewById(R.id.aSpinner);
-        aSpinner.setOnItemSelectedListener(this);
+
+        setMyRecyclerView();
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-           if(verifTime()){
-               if (verifDate() || verifEdtTitre()){
-                   Event event=new Event();
-                   event.setId_user(sharedpreferences.getString("ID_USER", null));
-                   event.setTitre(edtTitreEvent.getText().toString());
-                   event.setDate(txtDateEvent.getText().toString());
-                   event.setDestinations(Data.getInstance().getmDataSelected());
-                   event.setType(type);
-
-                   HashMap<String,String> map=new HashMap<>();
-                   map.put("id_user",event.getId_user());
-                   map.put("titre",event.getTitre());
-                   map.put("date",event.getDate());
-                   map.put("destinations",event.getDestinations().toString());
-                   map.put("type",event.getType());
-                   Call<Void> call=retrofitInterface.createEvent(map);
-                   call.enqueue(new Callback<Void>() {
-                       @Override
-                       public void onResponse(Call<Void> call, Response<Void> response) {
-                           if(response.code()==200){
-                               Snackbar.make(btnSend,
-                                       "success" , Snackbar.LENGTH_SHORT).show();
-                               Data.getInstance().getmDataSelected().clear();
-                               Handler handler = new Handler();
-                               handler.postDelayed(new Runnable() {
-                                                       @Override
-                                                       public void run() {
-                                                           startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-
-                                                       }
-                                   },1000);
-
-                           }
-                       }
-
-                       @Override
-                       public void onFailure(Call<Void> call, Throwable t) {
-                           Snackbar.make(btnSend,
-                                   t.getMessage(), Snackbar.LENGTH_LONG).show();
-
-
-                       }
-                   });
-
-               }
-
+                createEvent();
            }
-
-
-            // Toast.makeText(getApplicationContext(),
-                // verifTime()+"",Toast.LENGTH_LONG).show();
-
-
-
-            }
-
         });
         //date event
-        txt=findViewById(R.id.txt);
+
         btnDateEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -143,13 +86,87 @@ int  MM_x,yyyy_x,dd_x,hh_x,mm_x;
 
 
 
+
+
+    }
+
+    private void initUi() {
+
+        btnDateEvent =findViewById(R.id.btn_date_event);
+        txtDateEvent =findViewById(R.id.txt_date_event);
+        edtTitreEvent =findViewById(R.id.edt_name);
+        btnSend=findViewById(R.id.btn_send_event);
+        txt=findViewById(R.id.txt);
+
+        Spinner aSpinner = findViewById(R.id.aSpinner);
+
+        aSpinner.setOnItemSelectedListener(this);
+    }
+
+    public Event  setEvent(){
+        Event event = new Event();
+        event.setId_user(sharedpreferences.getString("ID_USER", null));
+        event.setTitre(edtTitreEvent.getText().toString());
+        event.setDate(txtDateEvent.getText().toString());
+        event.setGouv(sharedpreferences.getString("Gouv", null));
+        event.setParams(Data.getInstance().getmDataparams());
+        event.setType(type);
+        event.setCreatedBy("user");
+        return event;
+    }
+
+
+
+    public void createEvent(){
+
+        if (verifDate() || verifEdtTitre()) {
+            HashMap<String,Event> map=new HashMap<>();
+            map.put("event",setEvent());
+            Call<Void> call=retrofitInterface.createEvent(map);
+            call.enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+                    if(response.code()==200){
+                        Snackbar.make(btnSend,
+                                "success" , Snackbar.LENGTH_SHORT).show();
+                        Data.getInstance().getmDataSelected().clear();
+                        Data.getInstance().getmDataparams().clear();
+
+                        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedpreferences.edit();
+                        editor.putString("Gouv", "");
+                        editor.apply();
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                                finishAffinity();
+
+                            }
+                        },1000);
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+                    Snackbar.make(btnSend,
+                            t.getMessage(), Snackbar.LENGTH_LONG).show();
+
+
+                }
+            });
+
+        }
+    }
+    public void setMyRecyclerView(){
         myRecyclerView = findViewById(R.id.rv_event_des);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
         myRecyclerView.setLayoutManager(manager);
 
         eventDesAdapter = new CreateEventAdapter(this, Data.getInstance().getmDataSelected());
         myRecyclerView.setAdapter(eventDesAdapter);
-
     }
 
     private boolean verifEdtTitre(){
@@ -164,13 +181,18 @@ int  MM_x,yyyy_x,dd_x,hh_x,mm_x;
         }else return false;
     }
     private boolean verifTime(){
-        int diffheure = Data.getInstance().getmDataSelected().get(1).getHeure_arrive_des() - Data.getInstance().getmDataSelected().get(0).getHeure_arrive_des();
+        int res1=Integer.parseInt(Data.getInstance().getmDataparams().get(1).getTempsArrive().substring(0,1));
+        int res0=Integer.parseInt(Data.getInstance().getmDataparams().get(0).getTempsArrive().substring(0,1));
+
+        int diffheure = res1 - res0;
         if (diffheure > 2) {
+            Toast.makeText(getApplicationContext(),diffheure+"",Toast.LENGTH_LONG).show();
             return true;
         } else {
 
             return false;
         }
+
     }
 
     @Override
@@ -179,7 +201,7 @@ int  MM_x,yyyy_x,dd_x,hh_x,mm_x;
         MM_x=month+1;
         dd_x=dayOfMonth;
         if(dayOfMonth>dd){
-            String res= dd_x+"/"+MM_x+"/"+yyyy;
+            String res= yyyy_x+"-"+MM_x+"-"+dd_x;
             txtDateEvent.setText(res);
         }else {
             Toast.makeText(getApplicationContext(),"erreur",Toast.LENGTH_SHORT).show();

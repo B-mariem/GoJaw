@@ -1,0 +1,16 @@
+<div class="container" style="width: 700px;">  
+  <div  *ngFor="let item of tabDestination;let i=index" >
+  
+       <input type="time"
+       value="08:00"
+       mdbInput #tempsArrive>
+       <span style="margin: 16px;">{{item.libelle}}</span><br>
+       <span style="margin-left:180px;">{{item.categorie}}</span>
+       <button type="button" class="btn btn-outline-primary" style="float: right;;" (click)="add(tempsArrive.value,item)" >add</button>
+       <hr>
+  </div>
+  
+<button type="button" class="btn btn-outline-primary" (click)="Save()" style="float: right;" >Save Event</button>
+<button type="button" class="btn btn-warning" (click)="back()">back</button>
+
+</div>

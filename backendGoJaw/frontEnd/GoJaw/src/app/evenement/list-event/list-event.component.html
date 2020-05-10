@@ -1,0 +1,34 @@
+<app-root-nav>
+<app-navbar-event></app-navbar-event>
+<div class="container">
+    <table class="table table-bordered" >
+      <thead class="table-success">
+        <tr>
+          <th scope="col">titre</th>
+          <th scope="col">date</th>
+          <th scope="col">Gouv</th>
+          <th scope="col">Type</th>
+          <th scope="col">Heure d'arrivée / Destination </th> 
+          <th scope="col">N° Participants</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of tabEvents;">
+          <td>{{item.titre}}</td>
+          <td>{{item.date}}</td>
+          <td>{{item.gouv}}</td>
+          <td>{{item.type}}</td>
+          <td>
+          <div *ngFor="let i of item.params;">
+               <b> {{i.tempsArrive}} </b>
+               <span> / </span>
+              <b> {{i.destination}}</b>   
+         </div> 
+        </td> 
+        <td>{{item.participants.length}}</td>        
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</app-root-nav>

@@ -1,44 +1,26 @@
-<app-root-nav>
-    <button type="button" class="btn btn-outline-primary" (click)="showDevAdd()">Ajouter gouv</button>
+<app-root-nav> 
+  <app-nav-gouv></app-nav-gouv> 
     <div class="row justify-content-center">
         
-        <div *ngIf="show">
-    <form [formGroup]="gouvForm" (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <label>Gouvernorat</label>
-        <input class="form-control" type="text" formControlName="gouv">
-      </div>
-      <div class="form-group">
-        <label>image</label>
-        <input class="form-control" type="text" formControlName="image">
-      </div>
+              <form [formGroup]="gouvForm" (ngSubmit)="onSubmit()">
+                   <div class="form-group">
+                         <label>Gouvernorat</label>
+                         <input class="form-control" type="text" formControlName="gouv">
+                   </div>
+                   <div class="form-group">
+                         <label>image</label>
+                         <input class="form-control" type="text" formControlName="image">
+                   </div>
   
-      <div class="form-group">
-        <button class="btn btn-success btn-lg btn-block" type="submit">Valider</button>
-      </div>
-    </form>
-</div>
+                  <div class="form-group">
+                          <button class="btn btn-success btn-lg btn-block" type="submit">Valider</button>
+                   </div>
+               </form>
+         
 
-<div class="table-responsive" style="margin-top: 50px;">
-  <table class="table">
-      <thead >
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Gouvernorat</th>
-          
-          </tr>
-      </thead>
-      <tbody>
-          <tr *ngFor="let item of tabGouv; ">
-            <td>{{item._id}}</td>
-            <td>{{item.gouv}}</td>   
-          </tr>
-        </tbody>
-     
-  </table>
-</div>
+
   </div>
-   
+ 
 
 </app-root-nav>
 

@@ -13,6 +13,9 @@ let user = new Schema({
     password: {
       type: String
    },
+   userURL: {
+      type: String
+   },
  
 }, {
    collection: 'user'

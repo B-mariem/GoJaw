@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <androidx.cardview.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="horizontal" android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+       android:padding="5dp" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/img_params"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                />
+            <TextView
+                android:id="@+id/text_libelle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="swdxfcgj,k"
+                android:textColor="#070707"
+                android:layout_marginTop="20dp"
+                android:textAllCaps="true"
+                android:textSize="18sp"
+
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@id/img_params"
+                />
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_below="@id/text_libelle"
+                android:layout_toRightOf="@id/img_params"
+                android:padding="2dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/clock"
+           />
+
+            <TextView
+                android:id="@+id/text_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_libelle"
+                android:layout_toRightOf="@id/imageView"
+                android:textAllCaps="true"
+                android:textSize="18sp"
+                android:textColor="#070707"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                 />
+
+
+
+
+
+
+        </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>

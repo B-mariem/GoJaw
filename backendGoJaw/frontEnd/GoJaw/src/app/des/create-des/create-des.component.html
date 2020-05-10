@@ -1,5 +1,5 @@
 <app-root-nav>
-       
+  <app-des-navbar> </app-des-navbar>   
     <div class="row justify-content-center">
         <form [formGroup]="destinationForm" (ngSubmit)="onSubmit()">
             <div class="form-group">
@@ -11,8 +11,22 @@
               <input class="form-control" type="text" formControlName="image">
             </div>
             <div class="form-group">
-                <label>Categorie</label>
-                <input class="form-control" type="text" formControlName="categorie">
+              <label>Categorie </label>
+              <select class="custom-select form-control" (change)="updateCategorie($event.target.value)"
+              formControlName="categorie">
+                <option *ngFor="let item of tabCategorie" value="{{item.libelle}}">{{item.libelle}}
+                </option>
+              </select>
+             
+            </div>
+
+              <div class="form-group">
+                <label>Latitude</label>
+                <input class="form-control" type="number" formControlName="latitude">
+              </div>
+              <div class="form-group">
+                <label>Longitude</label>
+                <input class="form-control" type="number" formControlName="longitude">
               </div>
             <div class="form-group">
                 <label>Gouv</label>

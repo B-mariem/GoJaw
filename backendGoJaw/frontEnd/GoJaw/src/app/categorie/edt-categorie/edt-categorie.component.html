@@ -1,0 +1,11 @@
+<mat-dialog-content [formGroup]="form">
+    <p>{{Mydata.id}}</p>
+    <mat-form-field>
+      <input matInput formControlName="libelle">
+  </mat-form-field>
+ 
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <button class="mat-raised-button"(click)="edit()">Save</button>
+    </mat-dialog-actions>
+    

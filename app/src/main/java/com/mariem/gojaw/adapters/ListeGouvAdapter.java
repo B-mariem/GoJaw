@@ -2,6 +2,7 @@ package com.mariem.gojaw.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,7 @@ import com.bumptech.glide.Glide;
 import com.mariem.gojaw.DATA.Constant;
 import com.mariem.gojaw.R;
 import com.mariem.gojaw.models.Gouvernorat;
-import com.mariem.gojaw.ui.DestinationActivity;
+import com.mariem.gojaw.ui.Destinations_eventsActivity;
 
 import java.util.List;
 
@@ -24,7 +25,8 @@ public class ListeGouvAdapter extends RecyclerView.Adapter<ListeGouvAdapter.myVi
     Context context;
     private List<Gouvernorat> mData;
     private LayoutInflater mInflater;
-
+    private SharedPreferences sharedpreferences;
+    private String MyPREFERENCES = "prefs";
     public ListeGouvAdapter(Context context, List<Gouvernorat> mData) {
         this.mInflater = LayoutInflater.from(context);
         this.context = context;
@@ -46,9 +48,14 @@ public class ListeGouvAdapter extends RecyclerView.Adapter<ListeGouvAdapter.myVi
         holder.img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(context, DestinationActivity.class);
+                Intent intent=new Intent(context, Destinations_eventsActivity.class);
                 intent.putExtra(Constant.ARG_GOUV,gouv.getGouv());
                 context.startActivity(intent);
+
+                sharedpreferences = context.getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.putString("Gouv", gouv.getGouv());
+                editor.apply();
             }
         });
 
